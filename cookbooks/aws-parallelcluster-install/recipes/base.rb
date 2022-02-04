@@ -24,6 +24,10 @@ when 'rhel', 'amazon'
   include_recipe 'yum'
   if platform_family?('amazon')
     alinux_extras_topic 'epel'
+    # In the case of AL2, there are more packages to install via extras
+    node['cluster']['alinux_extras']&.each do |topic|
+      alinux_extras_topic topic
+    end
   elsif platform?('centos')
     include_recipe "yum-epel"
   end
@@ -66,14 +70,17 @@ build_essential
 include_recipe "aws-parallelcluster-install::python"
 
 # Install lots of packages
-package node['cluster']['base_packages'] do
-  retries 10
-  retry_delay 5
-end
-
-# In the case of AL2, there are more packages to install via extras
-node['cluster']['alinux_extras']&.each do |topic|
-  alinux_extras_topic topic
+if ['rhel', 'amazon'].include? node['platform_family']
+  package node['cluster']['base_packages'] do
+    retries 10
+    retry_delay 5
+    flush_cache( { :before => true } )
+  end
+elsif ['debian'].include? node['platform_family']
+  package node['cluster']['base_packages'] do
+    retries 10
+    retry_delay 5
+  end
 end
 
 unless virtualized?
