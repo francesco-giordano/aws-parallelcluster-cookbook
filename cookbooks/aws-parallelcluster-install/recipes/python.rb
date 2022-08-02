@@ -54,8 +54,9 @@ bash 'install CloudFormation helpers' do
       set -e
       region="#{node['cluster']['region']}"
       bucket="s3.amazonaws.com"
-      [[ ${region} =~ ^cn- ]] && bucket="s3.cn-north-1.amazonaws.com.cn/cn-north-1-aws-parallelcluster"
-      curl --retry 3 -L -o aws-cfn-bootstrap-py3-latest.tar.gz https://${bucket}/cloudformation-examples/aws-cfn-bootstrap-py3-latest.tar.gz
+      [[ ${region} =~ ^cn- ]] && bucket="aws-parallelcluster-dev-china.s3.cn-north-1.amazonaws.com.cn/archives"
+      echo "bucket: https://${bucket}/cfn-bootstrap/aws-cfn-bootstrap-py3-latest.tar.gz"
+      curl --retry 3 -L -o aws-cfn-bootstrap-py3-latest.tar.gz https://${bucket}/cfn-bootstrap/aws-cfn-bootstrap-py3-latest.tar.gz
       #{node['cluster']['cfn_bootstrap_virtualenv_path']}/bin/pip install aws-cfn-bootstrap-py3-latest.tar.gz
   CFNTOOLS
   creates "#{node['cluster']['cfn_bootstrap_virtualenv_path']}/bin/cfn-hup"
