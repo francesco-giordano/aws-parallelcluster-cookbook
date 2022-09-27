@@ -54,7 +54,7 @@ bash "Install CloudFormation helpers from #{node['cluster']['cfn_bootstrap']['pa
       set -e
       region="#{node['cluster']['region']}"
       bucket="s3.amazonaws.com"
-      [[ ${region} =~ ^cn- ]] && bucket="s3.cn-north-1.amazonaws.com.cn/cn-north-1-aws-parallelcluster"
+      [[ ${region} =~ ^cn- ]] && bucket="s3.cn-north-1.amazonaws.com.cn/aws-parallelcluster-dev-china"
       curl --retry 3 -L -o #{node['cluster']['cfn_bootstrap']['package']} https://${bucket}/cloudformation-examples/#{node['cluster']['cfn_bootstrap']['package']}
       #{node['cluster']['cfn_bootstrap_virtualenv_path']}/bin/pip install #{node['cluster']['cfn_bootstrap']['package']}
   CFNTOOLS
