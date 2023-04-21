@@ -31,4 +31,3 @@ default['cluster']['armpl']['url'] = [
   node['cluster']['armpl']['platform'],
   "arm-performance-libraries_#{node['cluster']['armpl']['version']}_#{node['cluster']['armpl']['platform']}_gcc-#{node['cluster']['armpl']['gcc']['major_minor_version']}.tar",
 ].join('/')
-
