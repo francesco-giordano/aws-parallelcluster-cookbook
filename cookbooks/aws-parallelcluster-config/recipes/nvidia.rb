@@ -49,4 +49,9 @@ if graphic_instance? && nvidia_installed?
     action :create
     variables(is_nvidia_persistenced_running: is_process_running('/usr/bin/nvidia-persistenced'))
   end
+
+  service "parallelcluster_nvidia" do
+    supports restart: false
+    action %i(enable start)
+  end
 end

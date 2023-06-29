@@ -6,7 +6,7 @@ Description=ParallelCluster NVIDIA Daemon
 Wants=syslog.target
 
 [Service]
-<% if is_nvidia_persistenced_running -%>
+<% if @is_nvidia_persistenced_running -%>
 Type=simple
 ExecStart=/usr/bin/nvidia-smi
 RemainAfterExit=yes
