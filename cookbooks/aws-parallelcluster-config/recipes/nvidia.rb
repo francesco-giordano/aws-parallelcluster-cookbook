@@ -47,7 +47,7 @@ if graphic_instance? && nvidia_installed?
     group 'root'
     mode '0644'
     action :create
-    variables(is_nvidia_persistenced_running: is_process_running('/usr/bin/nvidia-persistenced'))
+    variables(is_nvidia_persistenced_running: is_process_running('nvidia-persistenced'))
   end
 
   service "parallelcluster_nvidia" do
